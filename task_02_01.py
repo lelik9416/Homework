@@ -17,14 +17,11 @@
 Выходные данные: True
 """
 
-a = '49094'
+a = 49094
 b = 'Я бы изменил мир, но бог не дает исходники'
 c = 'Сел в озере березов лес'
 
 def is_palindrome(s):
-    s1 = ''.join(s.split())		
+    s1 = ''.join(str(s).split())		
     return s1.lower() == s1.lower()[::-1]
 	
-print(is_palindrome(a))
-print(is_palindrome(b))
-print(is_palindrome(c))

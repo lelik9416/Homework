@@ -23,5 +23,3 @@ def average(lst):
     return round(aver, 3)
 
 
-print(average(a))
-print(average(b))

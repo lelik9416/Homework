@@ -21,6 +21,6 @@ a = [q, n, m]
 
 for i in range(len(a)-1):
     if int(a[i]) > int(a[i+1]):
-        a[i], a[i+1] = a[i+1], a[i]       
+        a[i], a[i+1] = a[i+1], a[i]   
 
-print(a)
+print(str(a)[1:-1])
