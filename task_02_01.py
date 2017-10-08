@@ -22,6 +22,8 @@ b = 'Я бы изменил мир, но бог не дает исходники
 c = 'Сел в озере березов лес'
 
 def is_palindrome(s):
-    s1 = ''.join(str(s).split())		
-    return s1.lower() == s1.lower()[::-1]
+    s1 = ''.join(str(s).split())
+    s2 = s1.strip()
+    print(s2)		
+    return s2.lower() == s2.lower()[::-1]
 	
