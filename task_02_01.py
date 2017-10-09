@@ -19,11 +19,13 @@
 
 a = 49094
 b = 'Я бы изменил мир, но бог не дает исходники'
-c = 'Сел в озере березов лес'
+c = 'Сел в озере березов лес!'
+
 
 def is_palindrome(s):
-    s1 = ''.join(str(s).split())
-    s2 = s1.strip()
-    print(s2)		
-    return s2.lower() == s2.lower()[::-1]
-	
+    s = str(s).lower()
+    str_1 = ''
+    for i in s:
+        if i.isalnum():
+            str_1 += i
+    return str_1 == str_1[::-1]
