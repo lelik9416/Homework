@@ -53,6 +53,17 @@ class ParamHandler(metaclass=ABCMeta):
     def get_all_params(self):
         return self.params
 
+    
+    @abstractmethod
+    def read(self):
+        pass
+            
+
+    
+    @abstractmethod
+    def write(self, data):
+        pass
+
 
     @classmethod 
     def add_type(cls, name, klass):
@@ -81,7 +92,6 @@ class ParamHandler(metaclass=ABCMeta):
 
 class PickleParamHandler(ParamHandler):
     def read(self):
-        #super().__init__(self.source)
         """
         Чтение из pickle файла и присвоение значений в self.params
         """
