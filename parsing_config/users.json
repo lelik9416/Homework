@@ -1,0 +1,20 @@
+{
+    "users": [
+        {
+            "skills": [
+                "C++",
+                "C"
+            ],
+            "id": 1,
+            "name": "Linus Torvalds"
+        },
+        {
+            "skills": [
+                "C",
+                "GNU"
+            ],
+            "id": 2,
+            "name": "Richard Stallman"
+        }
+    ]
+}
