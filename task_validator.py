@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 import os
-
+import datetime
 
 class ValidatorException(Exception):
     pass
@@ -17,15 +17,15 @@ class Validator(metaclass=ABCMeta):
     def get_types(cls):
         return cls.types
     
-    @staticmethod
-    def add_type(name, klass):
+    @classmethod
+    def add_type(cls, name, klass):
         if not name:
             raise ValidatorException('Validator must have a name!')
         
         if not issubclass(klass, Validator):
             raise ValidatorException('Class "{}" is not Validator!'.format(klass))
         
-        types[name] = klass 
+        cls.types[name] = klass 
     
     @classmethod
     def get_instance(cls, name):
@@ -35,7 +35,7 @@ class Validator(metaclass=ABCMeta):
         if klass is None:
             raise ValidatorException('ValidatorError: Validator with name "{}" not found'.format(name))
         
-        return klass(name)
+        return klass()
         
 
 
@@ -73,44 +73,54 @@ class EMailValidator(Validator):
         
 class DateTimeValidator(Validator):
     def validate(self, value):
-        return 'hi'
+        #row = value.split()
+        date_format = ['%Y-%m-%d %H:%M:%S',
+                       '%Y-%m-%d %H:%M',
+                       '%Y-%m-%d', 
+                       '%Y-%m-%j %H:%M:%S', 
+                       '%Y-%m-%j %H:%M',
+                       '%Y-%m-%j', 
+                       '%Y-%n-%j %H:%M:%S',
+                       '%Y-%n-%j %H:%M',
+                       '%Y-%n-%j', 
+                       '%j.%n.%Y %H:%M:%S', 
+                       '%j.%n.%Y %H:%M',
+                       '%j.%n.%Y',
+                       '%j.%m.%Y %H:%M:%S',
+                       '%j.%m.%Y %H:%M',
+                       '%j.%m.%Y', 
+                       '%d.%m.%Y %H:%M:%S',
+                       '%d.%m.%Y %H:%M',
+                       '%d.%m.%Y', 
+                       '%j/%n/%Y %H:%M:%S',
+                       '%j/%n/%Y %H:%M',
+                       '%j/%n/%Y', 
+                       '%j/%m/%Y %H:%M:%S', 
+                       '%j/%m/%Y %H:%M',
+                       '%j/%m/%Y', 
+                       '%d/%m/%Y %H:%M:%S',
+                       '%d/%m/%Y %H:%M',
+                       '%d/%m/%Y'
+                       ]
+        
+        for form in date_format:
+            try:
+                datetime.datetime.strptime(value, form)
+                return True
+            except:
+                continue  
+                
+        return False
+        
+        
+        
 
 
-#print(Validator.get_instance('info@itmo-it.org'))
+
 
 Validator.add_type('email', EMailValidator)
+Validator.add_type('datetime', DateTimeValidator)
+
 validator = Validator.get_instance('email')
-#validator = Validator.get_instance('datetime')
-print(validator.validate('info@itmo.org'))
+validator1 = Validator.get_instance('datetime')
 
-"""
-name = '@itmo-it.'
-sig1 = name.find('@')
-sig2 = name[::-1].find('.')
-
-
-if sig1 != 0 and sig2 != 0:
-    print(True)
-    
-print(sig1)
-print(sig2)
-
-
-ext = name.split('@')
-ext1 = ext[1].split('.')
-for i in ext:
-    a = len(i)
-
-if len(ext) !=0 and ext1[0] !=0 and ext1[1] !=0:
-   print('True')
-
-if a !=0:
-   print('True')
-
-
-
-_, ext = os.path.splitext(str(name).lower())
-        #ext = name.split('@')
-        #ext2 = name.split('.')
-        #ext = name.find('@')
-"""

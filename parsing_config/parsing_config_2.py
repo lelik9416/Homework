@@ -37,6 +37,9 @@ class ParamHandler (metaclass=ABCMeta):
         return TextParamHandler(source)
 """
 
+class ParamHandlerException(Exception):
+    pass
+
 
 class ParamHandler(metaclass=ABCMeta):
     types = {}
@@ -57,8 +60,7 @@ class ParamHandler(metaclass=ABCMeta):
     @abstractmethod
     def read(self):
         pass
-            
-
+        
     
     @abstractmethod
     def write(self, data):
@@ -135,8 +137,8 @@ json_pars   = ParamHandler.add_type('json', JsonParamHandler)
 pickle_pars = ParamHandler.get_instance('users.pickle')
 json_pars = ParamHandler.get_instance('users.json')
 #print(pickle_pars.read())
-#print(json_pars.read())
-
+json_pars.read()
+print(json_pars.get_all_params())
 
 data = {
     'ola': [
