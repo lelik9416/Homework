@@ -33,7 +33,7 @@ class Validator(metaclass=ABCMeta):
         klass = cls.types.get(name)
         
         if klass is None:
-            raise ValidatorException('ValidatorError: Validator with name "{}" not found'.format(name))
+            raise ValidatorException('Validator with name "{}" not found'.format(name))
         
         return klass()
         
