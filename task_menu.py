@@ -11,27 +11,28 @@ class Command(metaclass=ABCMeta):
     
     
 class Menu(object):
-    def __init__(self, name, klass):
+    def __init__(self):
         self.commands = {}
-        self.name = name
-        self.klass = klass
         self.count = 0
     
     
     def add_command(self, name, klass):
-        if not self.name:
+        if not name:
             raise CommandException('Command must have a name!')
 
-        if not issubclass(self.klass, Command):
+        if not issubclass(klass, Command):
             raise CommandException('Class "{}" is not Command!'.format(klass))
         
-        self.commands[self.name] = self.klass
+        self.commands[name] = klass
 
 
     def execute(self, name, *args, **kwargs):
-        if not self.name:
+        klass = self.commands.get(name)
+        
+        if not name:
             raise CommandException('Command with name "{}" not found'.format(name))
-        return self.klass(*args, **kwargs).execute()   
+            
+        return klass(*args, **kwargs).execute()   
 
 
     def __iter__(self):
@@ -49,10 +50,22 @@ class Menu(object):
 
 
 class ShowCommand(Command):
+    def __init__(self, task_id):
+        self.task_id = task_id
+    
     def execute(self):
-        pass
+        return 'execute show task {}'.format(self.task_id) 
 
 
 class ListCommand(Command):
     def execute(self):
         pass
+
+
+menu = Menu()
+menu.add_command('show', ShowCommand)
+#menu.add_command('list', ListCommand)
+
+menu.execute('show', 1)
+
+print(menu)
