@@ -7,7 +7,7 @@ class Tag(object):
     __slots__ = ('name', 'atribute')
     
     def __init__(self, name):
-        self.__name = str(name)
+        self.__name = name
         self.__atribute = {}
     
     
@@ -78,18 +78,18 @@ class Tag(object):
             return self.__attribute.get(attr)
     
     
-    def __setattr__(self, attr):
+    def __setattr__(self, name, attr):
         try:
             return super().__setattr__(attr)
         except AttributeError:
-            return self.__attribute.get(attr)
+            self.__attribute[name] = attr
     
     
     def __delattr__(self, attr):
         try:
             return super().__delattr__(attr)
         except AttributeError:
-            return self.__attribute.get(attr)
+            del self.__attribute(attr)
     
     
     def __str__(self):
@@ -100,3 +100,6 @@ class Tag(object):
 class ContainerTag(Tag):
     pass
 
+img = Tag('img')
+
+a = Tag.parent()
