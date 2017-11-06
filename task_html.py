@@ -78,19 +78,19 @@ class Tag(object):
             return self.__attribute.get(attr)
     
     
-    def __setattr__(self, name, attr):
+    def __setattr__(self, value, attr):
         try:
-            return super().__setattr__(attr)
+            return super().__setattr__(value, attr)
         except AttributeError:
-            self.__attribute[name] = attr
+            self.__attribute[value] = attr
     
     
     def __delattr__(self, attr):
         try:
             return super().__delattr__(attr)
         except AttributeError:
-            del self.__attribute(attr)
-    
+            del self.__attribute[attr]
+            
     
     def __str__(self):
         return '<img src="{}" alt="{}">'.format(src, alt)
@@ -100,6 +100,7 @@ class Tag(object):
 class ContainerTag(Tag):
     pass
 
+
+
 img = Tag('img')
 
-a = Tag.parent()
