@@ -4,11 +4,11 @@ class TagException(Exception):
 
 
 class Tag(object):
-    __slots__ = ('name', 'atribute')
+    __slots__ = ('__name', '__attribute')
     
     def __init__(self, name):
         self.__name = name
-        self.__atribute = {}
+        self.__attribute = {}
     
     
     @property
@@ -89,11 +89,15 @@ class Tag(object):
         try:
             return super().__delattr__(attr)
         except AttributeError:
-            del self.__attribute[attr]
+            self.__attribute[attr] = None
             
     
     def __str__(self):
-        return '<img src="{}" alt="{}">'.format(src, alt)
+        itog = '<' + self.__name 
+        for key,value in self.__attribute.items():
+            itog += ' ' + key + '="' + value + '"'
+        itog += '>'
+        return itog
     
     
     
@@ -103,4 +107,8 @@ class ContainerTag(Tag):
 
 
 img = Tag('img')
+img.src = '/python-developer.svg'
+img.alt = 'Python Разработчик'
+
+print(img)
 
