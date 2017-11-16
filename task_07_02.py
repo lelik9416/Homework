@@ -21,5 +21,6 @@ from string import printable
 
 def password_generator(n):
     sets = printable
-    return ''.join(random.choice(sets) for i in range(n))    
-    
+    yield ''.join(random.choice(sets) for i in range(n))    
+
+
