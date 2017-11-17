@@ -21,29 +21,34 @@
 """
 
 import sys
-
-def run_on_linux(func):
-    def wrapper(*args, **kwargs):
-        result = func(*args, **kwargs)
-        if sys.platform == 'linux':
-            return result
-    return wrapper
-
-
-
-def run_on_windows(func):
-    def wrapper(*args, **kwargs):
-        result = func(*args, **kwargs)
-        if sys.platform == 'win32' or sys.platform == 'cygwin':
-            return result
-    return wrapper
+ 
+def run_on_linux(system):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            result = func(*args, **kwargs)
+            if sys.platform == 'linux':
+                return result
+        return wrapper
+    return decorator
 
 
+def run_on_windows(system):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            result = func(*args, **kwargs)
+            if sys.platform == 'win32' or sys.platform == 'cygwin':
+                return result
+        return wrapper
+    return decorator
 
 
-def run_on_macos(func):
-    def wrapper(*args, **kwargs):
-        result = func(*args, **kwargs)
-        if sys.platform == 'darwin':
-            return result
-    return wrapper
+
+
+def run_on_macos(system):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            result = func(*args, **kwargs)
+            if sys.platform == 'darwin':
+                return result
+        return wrapper
+    return decorator
