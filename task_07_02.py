@@ -17,10 +17,10 @@
     Генератор
 """
 import random
-from string import printable
+import string
 
 def password_generator(n):
-    sets = printable
-    yield ''.join(random.choice(sets) for i in range(n))    
-
+    sets = list(digits + ascii_letters + punctuation)
+    while 1:
+        yield ''.join(random.choice(sets) for i in range(n))    
 
